@@ -1,0 +1,39 @@
+JFDML JFormDesigner: "5.2.5.0.333" Java: "1.8.0_112-release" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+			"$horizontalGroup": "par l {seq l {space :::p, comp chartPanel:::p::p, space :p:39:p, par l {comp nValue::::273:x, comp deltaTValue:::::x, comp stepsValue::l::273:x, comp graphBuildButton::t::273:x}, space :p:35:p}}"
+			"$verticalGroup": "par l {seq {par l {seq {space :p:70:p, comp nValue:::p::p, space :p:71:p, comp deltaTValue:::p::p, space :p:73:p, comp stepsValue:::p::p, space :p:39:p, comp graphBuildButton:::p:51:p}, seq l {space :::p, comp chartPanel:::p::p}}, space ::34:x}}"
+		} ) {
+			name: "this"
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+				"$horizontalGroup": "par l {space :0:544:x}"
+				"$verticalGroup": "par l {space :0:368:x}"
+			} ) {
+				name: "chartPanel"
+				"border": new javax.swing.border.LineBorder( sfield java.awt.Color black, 1, false )
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "nValue"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "deltaTValue"
+			} )
+			add( new FormComponent( "javax.swing.JTextField" ) {
+				name: "stepsValue"
+			} )
+			add( new FormComponent( "javax.swing.JButton" ) {
+				name: "graphBuildButton"
+				"text": "text"
+			} )
+			menuBar: new FormContainer( "javax.swing.JMenuBar", new FormLayoutManager( class javax.swing.JMenuBar ) ) {
+				name: "menuBar1"
+			}
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+			"size": new java.awt.Dimension( 915, 470 )
+		} )
+	}
+}
