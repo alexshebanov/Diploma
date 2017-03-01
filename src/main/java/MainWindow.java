@@ -1,12 +1,13 @@
 import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.GroupLayout;
 import javax.swing.border.*;
+
 import org.jfree.chart.*;
 /*
  * Created by JFormDesigner on Wed Mar 01 13:06:00 EET 2017
  */
-
 
 
 /**
@@ -15,21 +16,63 @@ import org.jfree.chart.*;
 public class MainWindow extends JFrame {
     public MainWindow() {
         initComponents();
+        setVisible(true);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    }
 
+    private void graphBuildButtonActionPerformed(ActionEvent e) {
+        // TODO add your code here
+        try {
+            int vortexPointsCount = Integer.parseInt(nValue.getText());
+            double deltaT = Double.parseDouble(deltaTValue.getText());
+            int tCount = Integer.parseInt(stepsValue.getText());
+            Application.run(vortexPointsCount, deltaT, tCount);
+            chartPanel = new ChartPanel(Application.chart);
+            chartPanel.validate();
+            chartPanel.repaint();
+            pack();
+        } catch (NumberFormatException e1) {
+            JOptionPane.showMessageDialog(null, "Некорректно введены параметры");
+        }
+    }
+
+    private void menuItem1ActionPerformed(ActionEvent e) {
+        // TODO add your code here
+        dispose();
     }
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         // Generated using JFormDesigner Evaluation license - Alex Shebanov
         menuBar1 = new JMenuBar();
-        chartPanel = new JPanel();
+        menu1 = new JMenu();
+        menuItem1 = new JMenuItem();
+        chartPanel = new ChartPanel(Application.chart);
         nValue = new JTextField();
         deltaTValue = new JTextField();
         stepsValue = new JTextField();
         graphBuildButton = new JButton();
+        label1 = new JLabel();
+        label2 = new JLabel();
+        label3 = new JLabel();
 
         //======== this ========
         Container contentPane = getContentPane();
+
+        //======== menuBar1 ========
+        {
+
+            //======== menu1 ========
+            {
+                menu1.setText("\u0424\u0430\u0439\u043b");
+
+                //---- menuItem1 ----
+                menuItem1.setText("\u0412\u044b\u0445\u043e\u0434");
+                menuItem1.addActionListener(e -> menuItem1ActionPerformed(e));
+                menu1.add(menuItem1);
+            }
+            menuBar1.add(menu1);
+        }
         setJMenuBar(menuBar1);
 
         //======== chartPanel ========
@@ -57,7 +100,20 @@ public class MainWindow extends JFrame {
         }
 
         //---- graphBuildButton ----
-        graphBuildButton.setText("text");
+        graphBuildButton.setText("\u0420\u0430\u0441\u0447\u0438\u0442\u0430\u0442\u044c");
+        graphBuildButton.addActionListener(e -> graphBuildButtonActionPerformed(e));
+
+        //---- label1 ----
+        label1.setText("\u041a\u043e\u043b-\u0432\u043e \u0432\u0438\u0445\u0440\u0435\u0432\u044b\u0445 \u0442\u043e\u0447\u0435\u043a");
+        label1.setHorizontalAlignment(SwingConstants.CENTER);
+
+        //---- label2 ----
+        label2.setText("deltaT");
+        label2.setHorizontalAlignment(SwingConstants.CENTER);
+
+        //---- label3 ----
+        label3.setText("\u041a\u043e\u043b-\u0432\u043e \u0432\u0440\u0435\u043c\u0435\u043d\u043d\u044b\u0445 \u0448\u0430\u0433\u043e\u0432");
+        label3.setHorizontalAlignment(SwingConstants.CENTER);
 
         GroupLayout contentPaneLayout = new GroupLayout(contentPane);
         contentPane.setLayout(contentPaneLayout);
@@ -67,25 +123,34 @@ public class MainWindow extends JFrame {
                     .addContainerGap()
                     .addComponent(chartPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                     .addGap(39, 39, 39)
-                    .addGroup(contentPaneLayout.createParallelGroup()
-                        .addComponent(nValue, GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
-                        .addComponent(deltaTValue)
-                        .addComponent(stepsValue, GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
-                        .addComponent(graphBuildButton, GroupLayout.Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE))
-                    .addGap(35, 35, 35))
+                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(stepsValue, GroupLayout.Alignment.LEADING)
+                        .addComponent(deltaTValue, GroupLayout.Alignment.LEADING)
+                        .addComponent(label1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(nValue, GroupLayout.Alignment.LEADING)
+                        .addComponent(label2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(label3, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(graphBuildButton, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addContainerGap(31, Short.MAX_VALUE))
         );
         contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup()
                 .addGroup(contentPaneLayout.createSequentialGroup()
-                    .addGroup(contentPaneLayout.createParallelGroup()
+                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                         .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addGap(70, 70, 70)
+                            .addGap(25, 25, 25)
+                            .addComponent(label1, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(nValue, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                            .addGap(71, 71, 71)
+                            .addGap(28, 28, 28)
+                            .addComponent(label2, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(deltaTValue, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                            .addGap(73, 73, 73)
+                            .addGap(31, 31, 31)
+                            .addComponent(label3, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(stepsValue, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                            .addGap(39, 39, 39)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(graphBuildButton, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE))
                         .addGroup(contentPaneLayout.createSequentialGroup()
                             .addContainerGap()
@@ -100,10 +165,15 @@ public class MainWindow extends JFrame {
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
     // Generated using JFormDesigner Evaluation license - Alex Shebanov
     private JMenuBar menuBar1;
+    private JMenu menu1;
+    private JMenuItem menuItem1;
     private JPanel chartPanel;
     private JTextField nValue;
     private JTextField deltaTValue;
     private JTextField stepsValue;
     private JButton graphBuildButton;
+    private JLabel label1;
+    private JLabel label2;
+    private JLabel label3;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }

@@ -4,8 +4,8 @@ new FormModel {
 	contentType: "form/swing"
 	root: new FormRoot {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
-			"$horizontalGroup": "par l {seq l {space :::p, comp chartPanel:::p::p, space :p:39:p, par l {comp nValue::::273:x, comp deltaTValue:::::x, comp stepsValue::l::273:x, comp graphBuildButton::t::273:x}, space :p:35:p}}"
-			"$verticalGroup": "par l {seq {par l {seq {space :p:70:p, comp nValue:::p::p, space :p:71:p, comp deltaTValue:::p::p, space :p:73:p, comp stepsValue:::p::p, space :p:39:p, comp graphBuildButton:::p:51:p}, seq l {space :::p, comp chartPanel:::p::p}}, space ::34:x}}"
+			"$horizontalGroup": "par l {seq l {space :::p, comp chartPanel:::p::p, space :p:39:p, par t:::p {comp stepsValue::l:::x, comp deltaTValue::l:::x, comp label1::t:::x, comp nValue::l:::x, comp label2::t:::x, comp label3::t:::x, comp graphBuildButton::l:::x}, space ::31:x}}"
+			"$verticalGroup": "par l {seq {par l:::p {seq {space :p:25:p, comp label1:::p:32:p, space :::p, comp nValue:::p::p, space :p:28:p, comp label2:::p:33:p, space :::p, comp deltaTValue:::p::p, space :p:31:p, comp label3:::p:32:p, space :::p, comp stepsValue:::p::p, space :::x, comp graphBuildButton:::p:51:p}, seq {space :::p, comp chartPanel:::p::p}}, space ::34:x}}"
 		} ) {
 			name: "this"
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
@@ -26,14 +26,39 @@ new FormModel {
 			} )
 			add( new FormComponent( "javax.swing.JButton" ) {
 				name: "graphBuildButton"
-				"text": "text"
+				"text": "Расчитать"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "graphBuildButtonActionPerformed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label1"
+				"text": "Кол-во вихревых точек"
+				"horizontalAlignment": 0
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label2"
+				"text": "deltaT"
+				"horizontalAlignment": 0
+			} )
+			add( new FormComponent( "javax.swing.JLabel" ) {
+				name: "label3"
+				"text": "Кол-во временных шагов"
+				"horizontalAlignment": 0
 			} )
 			menuBar: new FormContainer( "javax.swing.JMenuBar", new FormLayoutManager( class javax.swing.JMenuBar ) ) {
 				name: "menuBar1"
+				add( new FormContainer( "javax.swing.JMenu", new FormLayoutManager( class javax.swing.JMenu ) ) {
+					name: "menu1"
+					"text": "Файл"
+					add( new FormComponent( "javax.swing.JMenuItem" ) {
+						name: "menuItem1"
+						"text": "Выход"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "menuItem1ActionPerformed", true ) )
+					} )
+				} )
 			}
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 0, 0 )
-			"size": new java.awt.Dimension( 915, 470 )
+			"size": new java.awt.Dimension( 780, 470 )
 		} )
 	}
 }

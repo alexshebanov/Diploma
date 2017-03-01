@@ -20,12 +20,11 @@ public class Application {
 
     public static JFreeChart chart;
 
-    public static void run() {
+    public static void run(int vortexPointsCount, double deltaT, int tCount) {
 
-        double deltaT = 0.1;
         double U0 = 1;
 
-        Rectangular rectangular = new Rectangular(64);
+        Rectangular rectangular = new Rectangular(vortexPointsCount);
         CoefficientMatrix coefficientMatrix = new CoefficientMatrix(rectangular);
         double[][] startMatrix = coefficientMatrix.matrix();
 
@@ -45,7 +44,7 @@ public class Application {
         List<VortexPoint> newPoints = new ArrayList<VortexPoint>();
         double startRightPart[] = coefficientMatrix.rightPart().clone();
 
-        for (int t = 0; t < 5; t++) {
+        for (int t = 0; t < tCount; t++) {
             for (Track track: trackList) {
                 VortexPoint currentPoint = track.points().get(track.points().size() - 1);
                 SpeedDependencies dependencies = new SpeedDependencies(currentPoint, rectangularAndTracks);
@@ -132,7 +131,7 @@ public class Application {
         plot.setBackgroundPaint(Color.white);
 
         window.setBackground(new Color(255, 255, 255));
-        window.setVisible(true);
+//        window.setVisible(true);
 
     }
 
