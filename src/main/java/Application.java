@@ -18,9 +18,8 @@ import java.util.List;
  */
 public class Application {
 
-    public static JFreeChart chart;
 
-    public static void run(int vortexPointsCount, double deltaT, int tCount) {
+    public JFreeChart chart(int vortexPointsCount, double deltaT, int tCount) {
 
         double U0 = 1;
 
@@ -124,7 +123,7 @@ public class Application {
         dataset.addSeries(series4);
         dataset.addSeries(rectSeries);
 
-        chart = ChartFactory.createScatterPlot("","","", dataset);
+        JFreeChart chart = ChartFactory.createScatterPlot("","","", dataset);
         window.setContentPane(new ChartPanel(chart));
         final XYPlot plot = chart.getXYPlot();
         plot.setRenderer(renderer);
@@ -132,7 +131,7 @@ public class Application {
 
         window.setBackground(new Color(255, 255, 255));
 //        window.setVisible(true);
-
+        return chart;
     }
 
 }

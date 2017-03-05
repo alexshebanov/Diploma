@@ -21,23 +21,23 @@ public class MainWindow extends JFrame {
     }
 
     private void graphBuildButtonActionPerformed(ActionEvent e) {
-        // TODO add your code here
         try {
             int vortexPointsCount = Integer.parseInt(nValue.getText());
             double deltaT = Double.parseDouble(deltaTValue.getText());
             int tCount = Integer.parseInt(stepsValue.getText());
-            Application.run(vortexPointsCount, deltaT, tCount);
-            chartPanel = new ChartPanel(Application.chart);
-            chartPanel.validate();
-            chartPanel.repaint();
-            pack();
+
+            ChartPanel graph = new ChartPanel(new Application().chart(vortexPointsCount, deltaT, tCount));
+            chartPanel.removeAll();
+            chartPanel.add(graph);
+            chartPanel.updateUI();
+
         } catch (NumberFormatException e1) {
             JOptionPane.showMessageDialog(null, "Некорректно введены параметры");
         }
+
     }
 
     private void menuItem1ActionPerformed(ActionEvent e) {
-        // TODO add your code here
         dispose();
     }
 
@@ -47,7 +47,7 @@ public class MainWindow extends JFrame {
         menuBar1 = new JMenuBar();
         menu1 = new JMenu();
         menuItem1 = new JMenuItem();
-        chartPanel = new ChartPanel(Application.chart);
+        chartPanel = new JPanel();
         nValue = new JTextField();
         deltaTValue = new JTextField();
         stepsValue = new JTextField();
@@ -79,24 +79,14 @@ public class MainWindow extends JFrame {
         {
             chartPanel.setBorder(LineBorder.createBlackLineBorder());
 
-            // JFormDesigner evaluation mark
-            chartPanel.setBorder(new javax.swing.border.CompoundBorder(
-                new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
-                    "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
-                    javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
-                    java.awt.Color.red), chartPanel.getBorder())); chartPanel.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
+//            // JFormDesigner evaluation mark
+//            chartPanel.setBorder(new javax.swing.border.CompoundBorder(
+//                new javax.swing.border.TitledBorder(new javax.swing.border.EmptyBorder(0, 0, 0, 0),
+//                    "JFormDesigner Evaluation", javax.swing.border.TitledBorder.CENTER,
+//                    javax.swing.border.TitledBorder.BOTTOM, new java.awt.Font("Dialog", java.awt.Font.BOLD, 12),
+//                    java.awt.Color.red), chartPanel.getBorder())); chartPanel.addPropertyChangeListener(new java.beans.PropertyChangeListener(){public void propertyChange(java.beans.PropertyChangeEvent e){if("border".equals(e.getPropertyName()))throw new RuntimeException();}});
 
-
-            GroupLayout chartPanelLayout = new GroupLayout(chartPanel);
-            chartPanel.setLayout(chartPanelLayout);
-            chartPanelLayout.setHorizontalGroup(
-                chartPanelLayout.createParallelGroup()
-                    .addGap(0, 544, Short.MAX_VALUE)
-            );
-            chartPanelLayout.setVerticalGroup(
-                chartPanelLayout.createParallelGroup()
-                    .addGap(0, 368, Short.MAX_VALUE)
-            );
+            chartPanel.setLayout(new BorderLayout());
         }
 
         //---- graphBuildButton ----
@@ -121,8 +111,8 @@ public class MainWindow extends JFrame {
             contentPaneLayout.createParallelGroup()
                 .addGroup(contentPaneLayout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(chartPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addGap(39, 39, 39)
+                    .addComponent(chartPanel, GroupLayout.PREFERRED_SIZE, 509, GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
                     .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
                         .addComponent(stepsValue, GroupLayout.Alignment.LEADING)
                         .addComponent(deltaTValue, GroupLayout.Alignment.LEADING)
@@ -130,15 +120,15 @@ public class MainWindow extends JFrame {
                         .addComponent(nValue, GroupLayout.Alignment.LEADING)
                         .addComponent(label2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(label3, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(graphBuildButton, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addContainerGap(31, Short.MAX_VALUE))
+                        .addComponent(graphBuildButton, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 143, GroupLayout.PREFERRED_SIZE))
+                    .addGap(64, 64, 64))
         );
         contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup()
                 .addGroup(contentPaneLayout.createSequentialGroup()
-                    .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                    .addGroup(contentPaneLayout.createParallelGroup()
                         .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addGap(25, 25, 25)
+                            .addGap(24, 24, 24)
                             .addComponent(label1, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(nValue, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -150,12 +140,12 @@ public class MainWindow extends JFrame {
                             .addComponent(label3, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(stepsValue, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(graphBuildButton, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE))
                         .addGroup(contentPaneLayout.createSequentialGroup()
                             .addContainerGap()
-                            .addComponent(chartPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-                    .addContainerGap(34, Short.MAX_VALUE))
+                            .addComponent(chartPanel, GroupLayout.PREFERRED_SIZE, 300, GroupLayout.PREFERRED_SIZE)))
+                    .addContainerGap(33, Short.MAX_VALUE))
         );
         pack();
         setLocationRelativeTo(getOwner());

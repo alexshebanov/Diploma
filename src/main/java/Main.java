@@ -6,7 +6,6 @@ import javax.swing.*;
 public class Main {
     public static void main(String[] args) {
 
-        Application.run(32, 0.4, 4);
         MainWindow window = new MainWindow();
     }
 }
