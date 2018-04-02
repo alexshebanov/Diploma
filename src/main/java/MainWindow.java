@@ -18,15 +18,17 @@ public class MainWindow extends JFrame {
         initComponents();
         setVisible(true);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Моделирование обтекания квадрата");
     }
 
     private void graphBuildButtonActionPerformed(ActionEvent e) {
         try {
             int vortexPointsCount = Integer.parseInt(nValue.getText());
-            double deltaT = Double.parseDouble(deltaTValue.getText());
+            double deltaT = Double.parseDouble(deltaTValue.getText().replace(',','.'));
             int tCount = Integer.parseInt(stepsValue.getText());
+            double thickness = Double.parseDouble(thicknessValue.getText().replace(',','.'));
 
-            ChartPanel graph = new ChartPanel(new Application().chart(vortexPointsCount, deltaT, tCount));
+            ChartPanel graph = new ChartPanel(new PlotBuilder().chart(vortexPointsCount, deltaT, tCount, thickness));
             chartPanel.removeAll();
             chartPanel.add(graph);
             chartPanel.updateUI();
@@ -55,6 +57,8 @@ public class MainWindow extends JFrame {
         label1 = new JLabel();
         label2 = new JLabel();
         label3 = new JLabel();
+        label4 = new JLabel();
+        thicknessValue = new JTextField();
 
         //======== this ========
         Container contentPane = getContentPane();
@@ -89,6 +93,15 @@ public class MainWindow extends JFrame {
             chartPanel.setLayout(new BorderLayout());
         }
 
+        //---- nValue ----
+        nValue.setHorizontalAlignment(SwingConstants.CENTER);
+
+        //---- deltaTValue ----
+        deltaTValue.setHorizontalAlignment(SwingConstants.CENTER);
+
+        //---- stepsValue ----
+        stepsValue.setHorizontalAlignment(SwingConstants.CENTER);
+
         //---- graphBuildButton ----
         graphBuildButton.setText("\u0420\u0430\u0441\u0447\u0438\u0442\u0430\u0442\u044c");
         graphBuildButton.addActionListener(e -> graphBuildButtonActionPerformed(e));
@@ -105,14 +118,21 @@ public class MainWindow extends JFrame {
         label3.setText("\u041a\u043e\u043b-\u0432\u043e \u0432\u0440\u0435\u043c\u0435\u043d\u043d\u044b\u0445 \u0448\u0430\u0433\u043e\u0432");
         label3.setHorizontalAlignment(SwingConstants.CENTER);
 
+        //---- label4 ----
+        label4.setText("\u0422\u043e\u043b\u0449\u0438\u043d\u0430 \u043f\u043e\u0433\u0440. \u0441\u043b\u043e\u044f");
+        label4.setHorizontalAlignment(SwingConstants.CENTER);
+
+        //---- thicknessValue ----
+        thicknessValue.setHorizontalAlignment(SwingConstants.CENTER);
+
         GroupLayout contentPaneLayout = new GroupLayout(contentPane);
         contentPane.setLayout(contentPaneLayout);
         contentPaneLayout.setHorizontalGroup(
             contentPaneLayout.createParallelGroup()
                 .addGroup(contentPaneLayout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(chartPanel, GroupLayout.PREFERRED_SIZE, 509, GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                    .addComponent(chartPanel, GroupLayout.PREFERRED_SIZE, 501, GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
                     .addGroup(contentPaneLayout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
                         .addComponent(stepsValue, GroupLayout.Alignment.LEADING)
                         .addComponent(deltaTValue, GroupLayout.Alignment.LEADING)
@@ -120,32 +140,37 @@ public class MainWindow extends JFrame {
                         .addComponent(nValue, GroupLayout.Alignment.LEADING)
                         .addComponent(label2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(label3, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(graphBuildButton, GroupLayout.Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 143, GroupLayout.PREFERRED_SIZE))
+                        .addComponent(graphBuildButton, GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
+                        .addComponent(label4, GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
+                        .addComponent(thicknessValue, GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE))
                     .addGap(64, 64, 64))
         );
         contentPaneLayout.setVerticalGroup(
             contentPaneLayout.createParallelGroup()
                 .addGroup(contentPaneLayout.createSequentialGroup()
-                    .addGroup(contentPaneLayout.createParallelGroup()
-                        .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addGap(24, 24, 24)
-                            .addComponent(label1, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(nValue, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                            .addGap(28, 28, 28)
-                            .addComponent(label2, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(deltaTValue, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                            .addGap(31, 31, 31)
-                            .addComponent(label3, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(stepsValue, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(graphBuildButton, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE))
-                        .addGroup(contentPaneLayout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(chartPanel, GroupLayout.PREFERRED_SIZE, 300, GroupLayout.PREFERRED_SIZE)))
-                    .addContainerGap(33, Short.MAX_VALUE))
+                    .addGap(24, 24, 24)
+                    .addComponent(label1, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(nValue, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addGap(28, 28, 28)
+                    .addComponent(label2, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(deltaTValue, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addGap(31, 31, 31)
+                    .addComponent(label3, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(stepsValue, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addGap(40, 40, 40)
+                    .addComponent(label4, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(thicknessValue, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(graphBuildButton, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE)
+                    .addGap(36, 36, 36))
+                .addGroup(contentPaneLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(chartPanel, GroupLayout.PREFERRED_SIZE, 500, GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pack();
         setLocationRelativeTo(getOwner());
@@ -165,5 +190,7 @@ public class MainWindow extends JFrame {
     private JLabel label1;
     private JLabel label2;
     private JLabel label3;
+    private JLabel label4;
+    private JTextField thicknessValue;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }

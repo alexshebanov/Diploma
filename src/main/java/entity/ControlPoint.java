@@ -5,8 +5,8 @@ package entity;
  */
 public class ControlPoint implements Point {
 
-    private final double x;
-    private final double y;
+    private double x;
+    private double y;
 
     public ControlPoint(double x, double y) {
         this.x = x;
@@ -19,5 +19,15 @@ public class ControlPoint implements Point {
 
     public double y() {
         return y;
+    }
+
+    @Override
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    @Override
+    public void setY(double y) {
+        this.y = y;
     }
 }

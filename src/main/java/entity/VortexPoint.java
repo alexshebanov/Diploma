@@ -5,8 +5,8 @@ package entity;
  */
 public class VortexPoint implements Point {
 
-    private final double x;
-    private final double y;
+    private double x;
+    private double y;
     private boolean isSharp;
     private double gamma = 1;
 
@@ -35,6 +35,16 @@ public class VortexPoint implements Point {
         return y;
     }
 
+    @Override
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    @Override
+    public void setY(double y) {
+        this.y = y;
+    }
+
     public boolean isSharp() {
         return isSharp;
     }
@@ -47,4 +57,7 @@ public class VortexPoint implements Point {
         return this.gamma;
     }
 
+    public void setSharp(boolean sharp) {
+        isSharp = sharp;
+    }
 }

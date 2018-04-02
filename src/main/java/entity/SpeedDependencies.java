@@ -1,5 +1,6 @@
 package entity;
 
+
 /**
  * Created by Alexander on 19.02.2017.
  */
@@ -8,9 +9,11 @@ public class SpeedDependencies {
     private double v;
     private double[] uSpeedFromEachVortex;
     private double[] vSpeedFromEachVortex;
+    private double discretRadius;
 
     public SpeedDependencies(Point point, VortexSurface surface) {
         int n = surface.vortexPoints().size();
+        discretRadius = 1 / n;
         uSpeedFromEachVortex = new double[n];
         vSpeedFromEachVortex = new double[n];
         double[] r2 = new double[n];
@@ -23,7 +26,7 @@ public class SpeedDependencies {
         for (int i = 0; i < n; i++) {
             uSpeedFromEachVortex[i] = 1
                     / (2 * Math.PI) * (point.y() - surface.vortexPoints().get(i).y()) / r2[i];
-            vSpeedFromEachVortex[i] = - 1
+            vSpeedFromEachVortex[i] = -1
                     / (2 * Math.PI) * (point.x() - surface.vortexPoints().get(i).x()) / r2[i];
         }
 

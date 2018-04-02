@@ -21,4 +21,7 @@ public class Track {
         return this.points;
     }
 
+    public VortexPoint getStartPoint() {
+        return startPoint;
+    }
 }
